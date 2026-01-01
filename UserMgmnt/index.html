@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Management Web App</title>
+
+  <!-- Tailwind CSS with proper dark mode setup -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+  <style>
+    .hidden {
+      display: none !important;
+    }
+    * {
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+    
+    /* Custom beige color palette */
+    .bg-beige {
+      background-color: #f5f1e7;
+    }
+    .bg-beige-light {
+      background-color: #faf8f3;
+    }
+    .bg-beige-dark {
+      background-color: #e8e1d1;
+    }
+    .border-beige {
+      border-color: #e8e1d1;
+    }
+    .text-beige-dark {
+      color: #8a7e6d;
+    }
+    .hover\:bg-beige-dark:hover {
+      background-color: #e8e1d1;
+    }
+    .focus\:ring-beige:focus {
+      --tw-ring-color: #d4c9b8;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-beige dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300">
+  <div class="container mx-auto px-4 py-8 max-w-7xl">
+    
+    <!-- HEADER -->
+    <div class="text-center mb-10">
+      <h1 class="mb-4 text-4xl font-extrabold tracking-tight text-amber-900 dark:text-white">
+        User Management Web App
+      </h1>
+      <p class="max-w-3xl mx-auto text-lg text-beige-dark dark:text-gray-300">
+        Create, edit, search, and manage users efficiently.  
+        Data is stored locally and the interface supports light and dark modes.
+      </p>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mb-8">
+      <div class="flex gap-4">
+        <button
+          id="toggleForm"
+          class="bg-amber-700 hover:bg-amber-800 text-white px-5 py-2.5 rounded-lg transition-colors font-medium">
+          + Add User
+        </button>
+        
+        <button
+          id="darkModeToggle"
+          class="bg-amber-800 hover:bg-amber-900 dark:bg-gray-600 dark:hover:bg-gray-700 text-white px-5 py-2.5 rounded-lg transition-colors font-medium flex items-center gap-2">
+          <span>🌙</span>
+          <span>Dark Mode</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <div id="formWrapper" class="hidden mb-8 flex justify-center">
+      <div class="w-full max-w-2xl"> <!-- Changed from full width to max-w-2xl -->
+        <div class="bg-beige-light dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-beige dark:border-gray-700">
+          <h2 class="text-2xl font-semibold mb-6 text-amber-900 dark:text-white">
+            Create / Edit User
+          </h2>
+
+          <form id="userForm" class="space-y-5">
+            <div>
+              <label class="block text-sm font-medium mb-2 text-amber-900 dark:text-gray-300">Name</label>
+              <input
+                id="name"
+                type="text"
+                placeholder="Enter name"
+                required
+                class="w-full px-4 py-3 rounded-lg border border-beige dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-beige-dark dark:placeholder-gray-400 focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition">
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium mb-2 text-amber-900 dark:text-gray-300">Role</label>
+              <input
+                id="role"
+                type="text"
+                placeholder="Enter role"
+                required
+                class="w-full px-4 py-3 rounded-lg border border-beige dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-beige-dark dark:placeholder-gray-400 focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition">
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium mb-2 text-amber-900 dark:text-gray-300">Bio</label>
+              <textarea
+                id="bio"
+                rows="3"
+                placeholder="Short bio"
+                required
+                class="w-full px-4 py-3 rounded-lg border border-beige dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-beige-dark dark:placeholder-gray-400 focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition resize-none"></textarea>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium mb-2 text-amber-900 dark:text-gray-300">Profile Image URL</label>
+              <input
+                id="img"
+                type="text"
+                placeholder="Image URL"
+                required
+                class="w-full px-4 py-3 rounded-lg border border-beige dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-beige-dark dark:placeholder-gray-400 focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition">
+            </div>
+
+            <div class="pt-2">
+              <button
+                type="submit"
+                class="w-full bg-amber-700 hover:bg-amber-800 text-white font-medium py-3 px-4 rounded-lg transition-colors">
+                Save User
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="mb-8 flex justify-center">
+      <div class="w-full max-w-2xl"> <!-- Same width as form -->
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Search user by name..."
+          class="w-full px-5 py-3.5 rounded-lg border border-beige dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-beige-dark dark:placeholder-gray-400 focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none shadow-sm">
+      </div>
+    </div>
+
+    <!-- CARDS -->
+    <div id="cardDiv" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- User cards will be inserted here -->
+    </div>
+
+    <!-- EMPTY STATE -->
+    <div id="emptyState" class="text-center py-12 hidden">
+      <div class="text-beige-dark dark:text-gray-500 mb-4">
+        <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5 3.75l-5.5 5.5-2.5-2.5"></path>
+        </svg>
+      </div>
+      <h3 class="text-xl font-medium text-beige-dark dark:text-gray-400 mb-2">No users found</h3>
+      <p class="text-beige-dark dark:text-gray-500">Add your first user by clicking "+ Add User" button</p>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
