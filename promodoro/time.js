@@ -14,7 +14,7 @@ let isRunning = false;
 let currentMode = 0;
 
 // Time presets
-const times = [60, 180, 300]; // short, mid, long
+const times = [60, 180, 300]; 
 
 // Break buttons
 breakBtns[0].onclick = () => { currentMode = 0; setTime(times[0]); };
@@ -83,7 +83,7 @@ resetBtn.onclick = () => {
     updateCircle();
 };
 
-// Skip (Next Mode)
+// Skip 
 skipBtn.onclick = () => {
     currentMode = (currentMode + 1) % 3;
     setTime(times[currentMode]);
